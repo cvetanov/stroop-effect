@@ -9,12 +9,10 @@ import android.view.ViewGroup;
 
 import vvkn.finki.ukim.mk.stroopeffect.R;
 
-/**
- * Created by gocelinho on 9/12/15.
- */
 public class SimulationFragment extends Fragment {
     public static final String TAG = "SE:TestFragment";
     public static final String SIMULATION_TYPE = "congruent; incongruent; under-pressure";
+    public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 2;
     public static final int STROOP_EFFECT_INCOGRUENT_TIMER = 2;
@@ -26,8 +24,14 @@ public class SimulationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        // inflate depending on type\
         mSimulationType = getArguments().getInt(SIMULATION_TYPE);
+
+        View view = inflater.inflate(R.layout.fragment_simulation, container, false);
+
         Log.d(TAG, "type: " + mSimulationType);
-        return inflater.inflate(R.layout.fragment_simulation, container, false);
+        Log.d(TAG, "gender: " + getArguments().getString(TESTER_GENDER));
+
+        return view;
     }
 }

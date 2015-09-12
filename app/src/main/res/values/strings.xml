@@ -2,4 +2,11 @@
     <string name="app_name">Stroop Effect</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+
+    <string name="home_fragment_text_view_introduction">Hello</string>
+    <string name="home_fragment_text_view_choose">Select your gender</string>
+    <string name="home_fragment_radio_button_male">Male</string>
+    <string name="home_fragment_radio_button_female">Female</string>
+    <string name="home_fragment_button_start">Start the test</string>
+    <string name="home_fragment_text_view_instructions">Do this and that</string>
 </resources>
