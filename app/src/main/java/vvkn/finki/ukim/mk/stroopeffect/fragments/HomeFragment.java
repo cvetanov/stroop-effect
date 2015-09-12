@@ -1,22 +1,25 @@
-package vvkn.finki.ukim.mk.stroopeffect;
+package vvkn.finki.ukim.mk.stroopeffect.fragments;
 
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import vvkn.finki.ukim.mk.stroopeffect.R;
+
 /**
  * A placeholder fragment containing a simple view.
  */
-public class MainActivityFragment extends Fragment {
+public class HomeFragment extends Fragment {
+    public static final String TAG = "SE:MainFragment";
 
-    public MainActivityFragment() {
+    public HomeFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 }
