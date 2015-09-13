@@ -8,17 +8,41 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.sql.SQLException;
+
+import vvkn.finki.ukim.mk.stroopeffect.db.ResultsDao;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.HomeFragment;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SE:MainActivity";
+    private ResultsDao dao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initHomeFragment();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            dao.open();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        dao.close();
+    }
+
+    public ResultsDao getDao() {
+        return dao;
     }
 
     @Override

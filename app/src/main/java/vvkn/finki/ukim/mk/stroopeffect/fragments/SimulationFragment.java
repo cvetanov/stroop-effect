@@ -8,17 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import vvkn.finki.ukim.mk.stroopeffect.R;
+import vvkn.finki.ukim.mk.stroopeffect.models.Result;
 
 public class SimulationFragment extends Fragment {
     public static final String TAG = "SE:TestFragment";
     public static final String SIMULATION_TYPE = "congruent; incongruent; under-pressure";
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
-    public static final int STROOP_EFFECT_INCONGRUENT = 2;
+    public static final int STROOP_EFFECT_INCONGRUENT = 1;
     public static final int STROOP_EFFECT_INCOGRUENT_TIMER = 2;
     private int mSimulationType;
+    private Result currentResult;
 
     public SimulationFragment() {
+        currentResult = new Result();
     }
 
     @Override
@@ -31,6 +34,9 @@ public class SimulationFragment extends Fragment {
 
         Log.d(TAG, "type: " + mSimulationType);
         Log.d(TAG, "gender: " + getArguments().getString(TESTER_GENDER));
+
+        // write result to db
+        //((MainActivity)getActivity()).getDao().insert(currentResult);
 
         return view;
     }
