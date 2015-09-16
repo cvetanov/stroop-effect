@@ -74,20 +74,17 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    public void startSimulationFragment(int type, String gender)
+    public void startSimulationFragment(String gender)
     {
         Log.d(TAG, "Initializing stroop effect simulation fragment.");
-
         Fragment simulateTest = new SimulationFragment();
 
         Bundle arguments = new Bundle();
-        arguments.putInt(SimulationFragment.SIMULATION_TYPE, type);
         arguments.putString(SimulationFragment.TESTER_GENDER, gender);
         simulateTest.setArguments(arguments);
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, simulateTest);
-        //transaction.addToBackStack(null);     - back button returns previous fragment
         transaction.commit();
     }
 }

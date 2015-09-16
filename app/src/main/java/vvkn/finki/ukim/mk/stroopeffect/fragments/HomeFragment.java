@@ -43,7 +43,7 @@ public class HomeFragment extends Fragment {
                 String gender = (String)(view.findViewById(radioGroup.getCheckedRadioButtonId()).getTag());
                 if (gender == null || gender.isEmpty()) gender = "m";
 
-                ((MainActivity)getActivity()).startSimulationFragment(SimulationFragment.STROOP_EFFECT_CONGRUENT, gender);
+                ((MainActivity)getActivity()).startSimulationFragment(gender);
             }
         });
 

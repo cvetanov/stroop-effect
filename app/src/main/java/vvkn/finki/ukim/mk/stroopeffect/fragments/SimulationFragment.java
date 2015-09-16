@@ -19,13 +19,11 @@ import vvkn.finki.ukim.mk.stroopeffect.utilities.StopWatch;
 
 public class SimulationFragment extends Fragment {
     public static final String TAG = "SE:TestFragment";
-    public static final String SIMULATION_TYPE = "congruent; incongruent; under-pressure";
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
-    public static final int MAX_SIMULATIONS = 10;
+    public static final int MAX_SIMULATIONS = 5;
 
-    private final Random random;
     private static final int [] COLOR_FIELDS = { R.color.color_option_1, R.color.color_option_2,
                                                 R.color.color_option_3, R.color.color_option_4,
                                                 R.color.color_option_5, R.color.color_option_6,
@@ -36,21 +34,20 @@ public class SimulationFragment extends Fragment {
     private int mCurrentSimulationNumber;
     private int mTotalTries;
 
-    private Result currentResult;
-    private StopWatch stopWatch;
+    private final Result currentResult;
+    private final StopWatch stopWatch;
+    private final Random random;
 
     private ImageView imgViewMain;
-    private ImageView imgViewOption1;
-    private ImageView imgViewOption2;
-    private ImageView imgViewOption3;
-    private ImageView imgViewOption4;
-    private TextView txtViewOption1;
-    private TextView txtViewOption2;
-    private TextView txtViewOption3;
-    private TextView txtViewOption4;
+    private ImageView[] imgViewsArray;
+    private TextView[] txtViewsArray;
+
     private int mCorrectAnswer;
 
     public SimulationFragment() {
+        imgViewsArray = new ImageView[4];
+        txtViewsArray = new TextView[4];
+
         currentResult = new Result();
         stopWatch = new StopWatch();
         random = new Random();
@@ -59,59 +56,29 @@ public class SimulationFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // inflate depending on type\
-        mSimulationType = getArguments().getInt(SIMULATION_TYPE);
+        View view = inflater.inflate(R.layout.fragment_simulation, container, false);
+        initializeWidgets(view);
+
+        mSimulationType = STROOP_EFFECT_CONGRUENT;
         mCurrentSimulationNumber = 0;
         mTotalTries = 0;
-        mCorrectAnswer = -1;
 
-        Log.d(TAG, "type: " + mSimulationType);
-        Log.d(TAG, "gender: " + getArguments().getString(TESTER_GENDER));
         currentResult.setGender(getArguments().getString(TESTER_GENDER));
-
-        View view = inflater.inflate(R.layout.fragment_simulation, container, false);
-
-        imgViewMain = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_main);
-        imgViewOption1 = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option1);
-        imgViewOption2 = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option2);
-        imgViewOption3 = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option3);
-        imgViewOption4 = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option4);
-        txtViewOption1 = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option1);
-        txtViewOption2 = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option2);
-        txtViewOption3 = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option3);
-        txtViewOption4 = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option4);
 
         stopWatch.start();
 
         simulate(mSimulationType);
 
-        imgViewOption1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processClick(1);
-            }
-        });
-
-        imgViewOption2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processClick(2);
-            }
-        });
-
-        imgViewOption3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processClick(3);
-            }
-        });
-
-        imgViewOption4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                processClick(4);
-            }
-        });
+        for (int i = 0; i < imgViewsArray.length; ++i)
+        {
+            final int index = i;
+            imgViewsArray[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    processClick(index);
+                }
+            });
+        }
 
         // TODO: write result to db
         //((MainActivity)getActivity()).getDao().insert(currentResult);
@@ -119,27 +86,43 @@ public class SimulationFragment extends Fragment {
         return view;
     }
 
-    private void processClick(int option)
+    private void initializeWidgets(View view)
+    {
+        imgViewMain = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_main);
+
+        imgViewsArray[0] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option1);
+        imgViewsArray[1] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option2);
+        imgViewsArray[2] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option3);
+        imgViewsArray[3] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option4);
+
+        txtViewsArray[0] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option1);
+        txtViewsArray[1] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option2);
+        txtViewsArray[2] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option3);
+        txtViewsArray[3] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option4);
+    }
+
+    private void processClick(int optionClicked)
     {
         mTotalTries++;
-        Log.d(TAG, "totalTries incremented: " + mTotalTries);
-        if (mCorrectAnswer == option) {
+
+        if (mCorrectAnswer == optionClicked) {
             mCurrentSimulationNumber++;
-            Log.d(TAG, "currentSimulation incremented: " + mCurrentSimulationNumber);
+
             if (mCurrentSimulationNumber == MAX_SIMULATIONS)
             {
                 long elapsedTime = stopWatch.getElapsedMilliseconds();
                 currentResult.setElapsedTime(mSimulationType, elapsedTime);
-                currentResult.setErrorPercentage(mSimulationType, 1.0 * MAX_SIMULATIONS / mTotalTries);
+                currentResult.setErrorPercentage(mSimulationType, 1 - 1.0 * MAX_SIMULATIONS / mTotalTries);
                 stopWatch.restart();
 
                 if (mSimulationType == STROOP_EFFECT_INCONGRUENT) {
-                    Log.d(TAG, "Simulation finished");
-                    Toast.makeText(getActivity().getApplicationContext(), "Thanks for participating", Toast.LENGTH_SHORT).show();
+                    String message = "Thanks for participating. " + currentResult.toString();
+                    Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
                     ((MainActivity)getActivity()).startHomeFragment();
                 }
+
                 mSimulationType++;
-                Log.d(TAG, "simulationType incremented: " + mSimulationType);
+
                 mCurrentSimulationNumber = 0;
                 mTotalTries = 0;
             }
@@ -147,6 +130,8 @@ public class SimulationFragment extends Fragment {
         }
         else
         {
+            // TODO: custom toast that will last shorter than LENGTH_SHORT
+            // maybe even different design to the toast for error
             Toast.makeText(getActivity().getApplicationContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
         }
     }
@@ -154,22 +139,76 @@ public class SimulationFragment extends Fragment {
     private void simulate(int type)
     {
         int correctColorId = random.nextInt(COLOR_FIELDS.length);
-        int [] otherColors = generateOtherRandomNumbers(correctColorId);
-        int correctImageView = random.nextInt(4) + 1;
-        mCorrectAnswer = correctImageView;
+        int [] otherColorsIds = generateOtherRandomNumbers(correctColorId);
+        int correctAnswerIndex = random.nextInt(imgViewsArray.length);
+        mCorrectAnswer = correctAnswerIndex;
 
         if (type == STROOP_EFFECT_CONGRUENT) {
-            setWidgetsCongruent(otherColors, correctImageView, correctColorId);
+            setWidgetsCongruent(otherColorsIds, correctAnswerIndex, correctColorId);
         }
         else if (type == STROOP_EFFECT_INCONGRUENT)
         {
-            setWidgetsIncongruent(otherColors, correctImageView, correctColorId);
+            setWidgetsIncongruent(otherColorsIds, correctAnswerIndex, correctColorId);
         }
     }
 
+    private void setWidgetsCongruent(int[] otherColorsIds, int correctAnswerIndex, int correctColorId)
+    {
+        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+
+        for (int i = 0, j = 0; i < imgViewsArray.length; ++i)
+        {
+            if (i == correctAnswerIndex)
+            {
+                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+                txtViewsArray[i].setText(COLOR_NAMES[correctColorId]);
+            }
+            else
+            {
+                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorsIds[j]]));
+                txtViewsArray[i].setText(COLOR_NAMES[otherColorsIds[j++]]);
+            }
+        }
+    }
+
+    private void setWidgetsIncongruent(int[] otherColorIds, int correctImageViewIndex, int correctColorId)
+    {
+        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+
+        int imgViewIndexForCorrectColor = random.nextInt(imgViewsArray.length);
+        while (imgViewIndexForCorrectColor == correctImageViewIndex)
+        {
+            imgViewIndexForCorrectColor = random.nextInt(imgViewsArray.length);
+        }
+
+        int[] txtIds = randomizeValues(otherColorIds);
+
+        for (int i = 0, txtIndex = 0, imageIndex = 0; i < imgViewsArray.length; ++i)
+        {
+            if (i == correctImageViewIndex)
+            {
+                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorIds[imageIndex++]]));
+                txtViewsArray[i].setText(COLOR_NAMES[correctColorId]);
+            }
+            else
+            {
+                if (i == imgViewIndexForCorrectColor)
+                {
+                    imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+                }
+                else
+                {
+                    imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorIds[imageIndex++]]));
+                }
+                txtViewsArray[i].setText(COLOR_NAMES[txtIds[txtIndex++]]);
+            }
+        }
+    }
+
+    // TODO: Refactor random generators (make them more reusable)
     private int[] generateOtherRandomNumbers(int correctColorId)
     {
-        int [] colorIds = new int[3];
+        int [] colorIds = new int[imgViewsArray.length - 1];
         for (int i = 0; i < colorIds.length; ++i)
         {
             colorIds[i] = -1;
@@ -192,144 +231,33 @@ public class SimulationFragment extends Fragment {
         return colorIds;
     }
 
-    private void setWidgetsCongruent(int[] colorIds, int correctImageView, int correctColorId)
+    private int[] randomizeValues(int [] otherValues)
     {
-        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-        if (correctImageView == 1)
+        int[] newValues = new int[otherValues.length];
+
+        int firstIndex, secondIndex = -1, thirdIndex = -1;
+        firstIndex = random.nextInt(otherValues.length);
+        while (secondIndex == -1 || secondIndex == firstIndex)
         {
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            txtViewOption1.setText(COLOR_NAMES[correctColorId]);
-
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            txtViewOption2.setText(COLOR_NAMES[colorIds[0]]);
-
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            txtViewOption3.setText(COLOR_NAMES[colorIds[1]]);
-
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-            txtViewOption4.setText(COLOR_NAMES[colorIds[2]]);
+            secondIndex = random.nextInt(otherValues.length);
         }
-        else if (correctImageView == 2)
+        while (thirdIndex == -1 || thirdIndex == secondIndex || thirdIndex == firstIndex)
         {
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            txtViewOption2.setText(COLOR_NAMES[correctColorId]);
-
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            txtViewOption1.setText(COLOR_NAMES[colorIds[0]]);
-
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            txtViewOption3.setText(COLOR_NAMES[colorIds[1]]);
-
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-            txtViewOption4.setText(COLOR_NAMES[colorIds[2]]);
-        }
-        else if (correctImageView == 3)
-        {
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            txtViewOption3.setText(COLOR_NAMES[correctColorId]);
-
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            txtViewOption1.setText(COLOR_NAMES[colorIds[0]]);
-
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            txtViewOption2.setText(COLOR_NAMES[colorIds[1]]);
-
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-            txtViewOption4.setText(COLOR_NAMES[colorIds[2]]);
-        }
-        else
-        {
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            txtViewOption4.setText(COLOR_NAMES[correctColorId]);
-
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            txtViewOption1.setText(COLOR_NAMES[colorIds[0]]);
-
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            txtViewOption2.setText(COLOR_NAMES[colorIds[1]]);
-
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-            txtViewOption3.setText(COLOR_NAMES[colorIds[2]]);
-        }
-    }
-
-    private void setWidgetsIncongruent(int[] colorIds, int correctImageView, int correctColorId)
-    {
-        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-
-        int correctColorNotAnswerImgView = -1;
-        int[] txtIds = generateOtherRandomNumbers(correctColorId);
-        while (correctColorNotAnswerImgView == -1 || correctColorNotAnswerImgView == correctImageView)
-        {
-            correctColorNotAnswerImgView = random.nextInt(4) + 1;
+            thirdIndex = random.nextInt(otherValues.length);
         }
 
-        if (correctImageView == 1)
-        {
-            txtViewOption1.setText(COLOR_NAMES[correctColorId]);
-            txtViewOption2.setText(COLOR_NAMES[txtIds[0]]);
-            txtViewOption3.setText(COLOR_NAMES[txtIds[1]]);
-            txtViewOption4.setText(COLOR_NAMES[txtIds[2]]);
-        }
-        else if (correctImageView == 2)
-        {
-            txtViewOption2.setText(COLOR_NAMES[correctColorId]);
-            txtViewOption1.setText(COLOR_NAMES[txtIds[0]]);
-            txtViewOption3.setText(COLOR_NAMES[txtIds[1]]);
-            txtViewOption4.setText(COLOR_NAMES[txtIds[2]]);
-        }
-        else if (correctImageView == 3)
-        {
-            txtViewOption3.setText(COLOR_NAMES[correctColorId]);
-            txtViewOption1.setText(COLOR_NAMES[txtIds[0]]);
-            txtViewOption2.setText(COLOR_NAMES[txtIds[1]]);
-            txtViewOption4.setText(COLOR_NAMES[txtIds[2]]);
-        }
-        else //if (correctImageView == 4)
-        {
-            txtViewOption4.setText(COLOR_NAMES[correctColorId]);
-            txtViewOption1.setText(COLOR_NAMES[txtIds[0]]);
-            txtViewOption2.setText(COLOR_NAMES[txtIds[1]]);
-            txtViewOption3.setText(COLOR_NAMES[txtIds[2]]);
-        }
-        setImageViewColorsCongruent(correctColorNotAnswerImgView, correctColorId, colorIds);
-    }
+        Log.d(TAG, "randomized random values: " + firstIndex + ' ' + secondIndex + ' ' + thirdIndex);
 
-    private void setImageViewColorsCongruent(int correctColorNotAnswer, int correctColorId, int [] colorIds)
-    {
-        if (correctColorNotAnswer == 1)
-        {
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-        }
-        else if (correctColorNotAnswer == 2)
-        {
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-        }
-        else if (correctColorNotAnswer == 3)
-        {
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-        }
-        else if (correctColorNotAnswer == 4)
-        {
-            imgViewOption4.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
-            imgViewOption1.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[0]]));
-            imgViewOption2.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[1]]));
-            imgViewOption3.setBackgroundColor(getResources().getColor(COLOR_FIELDS[colorIds[2]]));
-        }
+        newValues[0] = otherValues[firstIndex];
+        newValues[1] = otherValues[secondIndex];
+        newValues[2] = otherValues[thirdIndex];
+
+        return newValues;
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "final result: " + currentResult.toString());
+        Log.d(TAG, "final result: \n" + currentResult.toString());
     }
 }
