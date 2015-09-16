@@ -7,12 +7,11 @@ public class Result {
     private Long id;
 
     private String gender;
+
     private double errorPercentageCongruent;
     private long elapsedTimeCongruent;
     private double errorPercentageIncongruent;
     private long elapsedTimeIncongruent;
-    private double errorPercentageIncongruentTimer;
-    private long elapsedTimeIncongruentTimer;
 
     public Result() {}
 
@@ -32,20 +31,12 @@ public class Result {
         this.errorPercentageIncongruent = errorPercentageIncongruent;
     }
 
-    public void setErrorPercentageIncongruentTimer(double errorPercentageIncongruentTimer) {
-        this.errorPercentageIncongruentTimer = errorPercentageIncongruentTimer;
-    }
-
     public void setElapsedTimeCongruent(long elapsedTimeCongruent) {
         this.elapsedTimeCongruent = elapsedTimeCongruent;
     }
 
     public void setElapsedTimeIncongruent(long elapsedTimeIncongruent) {
         this.elapsedTimeIncongruent = elapsedTimeIncongruent;
-    }
-
-    public void setElapsedTimeIncongruentTimer(long elapsedTimeIncongruentTimer) {
-        this.elapsedTimeIncongruentTimer = elapsedTimeIncongruentTimer;
     }
 
     public Long getId() {
@@ -64,10 +55,6 @@ public class Result {
         return errorPercentageIncongruent;
     }
 
-    public double getErrorPercentageIncongruentTimer() {
-        return errorPercentageIncongruentTimer;
-    }
-
     public long getElapsedTimeCongruent() {
         return elapsedTimeCongruent;
     }
@@ -76,20 +63,13 @@ public class Result {
         return elapsedTimeIncongruent;
     }
 
-    public long getElapsedTimeIncongruentTimer() {
-        return elapsedTimeIncongruentTimer;
-    }
-
     public void setElapsedTime(int type, long milliseconds)
     {
         if (type == SimulationFragment.STROOP_EFFECT_CONGRUENT) {
             setElapsedTimeCongruent(milliseconds);
         }
-        else if (type == SimulationFragment.STROOP_EFFECT_INCONGRUENT) {
-            setElapsedTimeIncongruent(milliseconds);
-        }
         else {
-            setElapsedTimeIncongruentTimer(milliseconds);
+            setElapsedTimeIncongruent(milliseconds);
         }
     }
 
@@ -98,11 +78,14 @@ public class Result {
         if (type == SimulationFragment.STROOP_EFFECT_CONGRUENT) {
             setErrorPercentageCongruent(error);
         }
-        else if (type == SimulationFragment.STROOP_EFFECT_INCONGRUENT) {
+        else {
             setErrorPercentageIncongruent(error);
         }
-        else {
-            setErrorPercentageIncongruentTimer(error);
-        }
+    }
+
+    @Override
+    public String toString() {
+        return gender + '\n' + getErrorPercentageCongruent() + ' ' + getElapsedTimeCongruent() + '\n'
+                + getErrorPercentageIncongruent() + ' ' + getElapsedTimeIncongruent();
     }
 }

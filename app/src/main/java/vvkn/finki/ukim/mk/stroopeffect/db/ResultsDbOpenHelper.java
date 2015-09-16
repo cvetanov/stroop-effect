@@ -9,10 +9,8 @@ public class ResultsDbOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_GENDER = "gender";
     public static final String COLUMN_ERROR_CONGRUENT = "errorCongruent";
     public static final String COLUMN_ERROR_INCONGRUENT = "errorIncongruent";
-    public static final String COLUMN_ERROR_INCONGRUENT_TIMER = "errorIncongruentTimer";
     public static final String COLUMN_ELAPSED_TIME_CONGRUENT = "elapsedTimeCongruent";
     public static final String COLUMN_ELAPSED_TIME_INCONGRUENT = "elapsedTimeIncongruent";
-    public static final String COLUMN_ELAPSED_TIME_INCONGRUENT_TIMER = "elapsedTimeIncongruentTimer";
     public static final String TABLE_NAME = "Results";
 
     private static final String DATABASE_NAME = "Results.db";
@@ -20,9 +18,9 @@ public class ResultsDbOpenHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_CREATE = String.format("create table %s (" +
         "%s integer primary key autoincrement, %s text not null, " +
-        "%s real, %s real, %s real, %s integer, %s integer, %s integer);",
-            TABLE_NAME, COLUMN_ID, COLUMN_GENDER, COLUMN_ERROR_CONGRUENT, COLUMN_ERROR_INCONGRUENT, COLUMN_ERROR_INCONGRUENT_TIMER,
-            COLUMN_ELAPSED_TIME_CONGRUENT, COLUMN_ELAPSED_TIME_INCONGRUENT, COLUMN_ELAPSED_TIME_INCONGRUENT_TIMER);
+        "%s real, %s real, %s integer, %s integer);",
+            TABLE_NAME, COLUMN_ID, COLUMN_GENDER, COLUMN_ERROR_CONGRUENT, COLUMN_ERROR_INCONGRUENT,
+            COLUMN_ELAPSED_TIME_CONGRUENT, COLUMN_ELAPSED_TIME_INCONGRUENT);
 
 
     public ResultsDbOpenHelper(Context c)

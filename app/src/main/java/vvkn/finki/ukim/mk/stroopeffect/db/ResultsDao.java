@@ -8,16 +8,12 @@ import java.sql.SQLException;
 
 import vvkn.finki.ukim.mk.stroopeffect.models.Result;
 
-/**
- * Created by gocelinho on 9/13/15.
- */
 public class ResultsDao  {
     private SQLiteDatabase database;
     private ResultsDbOpenHelper dbHelper;
-    private String [] allColumns = {ResultsDbOpenHelper.COLUMN_ID, ResultsDbOpenHelper.COLUMN_GENDER, ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT,
-            ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT, ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT_TIMER,
-            ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_CONGRUENT, ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT,
-            ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT_TIMER};
+    private String [] allColumns = { ResultsDbOpenHelper.COLUMN_ID, ResultsDbOpenHelper.COLUMN_GENDER,
+            ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT, ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT,
+            ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_CONGRUENT, ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT };
 
     public ResultsDao(Context c)
     {
@@ -55,12 +51,10 @@ public class ResultsDao  {
     {
         ContentValues contentValues = new ContentValues();
         contentValues.put(ResultsDbOpenHelper.COLUMN_GENDER, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_GENDER, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_GENDER, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_GENDER, r.getGender());
-        contentValues.put(ResultsDbOpenHelper.COLUMN_GENDER, r.getGender());
+        contentValues.put(ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT, r.getErrorPercentageCongruent());
+        contentValues.put(ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT, r.getErrorPercentageIncongruent());
+        contentValues.put(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_CONGRUENT, r.getElapsedTimeCongruent());
+        contentValues.put(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT, r.getElapsedTimeIncongruent());
         return contentValues;
     }
 
