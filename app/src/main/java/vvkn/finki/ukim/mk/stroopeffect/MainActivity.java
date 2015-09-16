@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        dao = new ResultsDao(getApplicationContext());
         initHomeFragment();
     }
 
@@ -60,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
         Fragment home = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.add(R.id.container, home);
+        transaction.commit();
+    }
+
+    public void startHomeFragment()
+    {
+        Log.d(TAG, "Simulation finished. Starting home fragment.");
+        Fragment home = new HomeFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, home);
         transaction.commit();
     }
 

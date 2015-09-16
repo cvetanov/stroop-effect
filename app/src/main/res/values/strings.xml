@@ -9,4 +9,7 @@
     <string name="home_fragment_radio_button_female">Female</string>
     <string name="home_fragment_button_start">Start the test</string>
     <string name="home_fragment_text_view_instructions">Do this and that</string>
+
+    <string name="simulation_fragment_text_view_instructions">Click the name of the color of the circle</string>
+    <string name="simulation_fragment_text_view_default">Default</string>
 </resources>

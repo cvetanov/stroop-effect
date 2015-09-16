@@ -1,5 +1,7 @@
 package vvkn.finki.ukim.mk.stroopeffect.models;
 
+import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
+
 public class Result {
     // Primary key
     private Long id;
@@ -76,5 +78,31 @@ public class Result {
 
     public long getElapsedTimeIncongruentTimer() {
         return elapsedTimeIncongruentTimer;
+    }
+
+    public void setElapsedTime(int type, long milliseconds)
+    {
+        if (type == SimulationFragment.STROOP_EFFECT_CONGRUENT) {
+            setElapsedTimeCongruent(milliseconds);
+        }
+        else if (type == SimulationFragment.STROOP_EFFECT_INCONGRUENT) {
+            setElapsedTimeIncongruent(milliseconds);
+        }
+        else {
+            setElapsedTimeIncongruentTimer(milliseconds);
+        }
+    }
+
+    public void setErrorPercentage(int type, double error)
+    {
+        if (type == SimulationFragment.STROOP_EFFECT_CONGRUENT) {
+            setErrorPercentageCongruent(error);
+        }
+        else if (type == SimulationFragment.STROOP_EFFECT_INCONGRUENT) {
+            setErrorPercentageIncongruent(error);
+        }
+        else {
+            setErrorPercentageIncongruentTimer(error);
+        }
     }
 }

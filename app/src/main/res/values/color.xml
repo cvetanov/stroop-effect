@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="dark_red">#880000</color>
+    <color name="white">#fff</color>
+
+    <color name="color_option_1">#000000</color>
+    <color name="color_option_2">#ff0000</color>
+    <color name="color_option_3">#00ff00</color>
+    <color name="color_option_4">#0000ff</color>
+    <color name="color_option_5">#ffff00</color>
+    <color name="color_option_6">#ff00ff</color>
+    <color name="color_option_7">#00ffff</color>
 </resources>
