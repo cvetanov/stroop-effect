@@ -1,8 +1,10 @@
 package vvkn.finki.ukim.mk.stroopeffect.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ public class SimulationFragment extends Fragment {
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
     public static final int MAX_SIMULATIONS = 1;
+    public static final int TOAST_DURATION = 500;
 
     private static final int [] COLOR_FIELDS = { R.color.color_option_1, R.color.color_option_2,
                                                 R.color.color_option_3, R.color.color_option_4,
@@ -41,6 +44,8 @@ public class SimulationFragment extends Fragment {
     private ImageView imgViewMain;
     private ImageView[] imgViewsArray;
     private TextView[] txtViewsArray;
+
+    private Toast errorToast;
 
     private int mCorrectAnswer;
 
@@ -96,6 +101,11 @@ public class SimulationFragment extends Fragment {
         txtViewsArray[1] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option2);
         txtViewsArray[2] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option3);
         txtViewsArray[3] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option4);
+
+        View toastView = getActivity().getLayoutInflater().inflate(R.layout.toast_error, null);
+        errorToast = new Toast(getActivity().getApplicationContext());
+        errorToast.setGravity(Gravity.BOTTOM, 0, 100);
+        errorToast.setView(toastView);
     }
 
     private void processClick(int optionClicked)
@@ -128,9 +138,14 @@ public class SimulationFragment extends Fragment {
         }
         else
         {
-            // TODO: custom toast that will last shorter than LENGTH_SHORT
-            // maybe even different design to the toast for error
-            Toast.makeText(getActivity().getApplicationContext(), "Wrong answer", Toast.LENGTH_SHORT).show();
+            errorToast.show();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    errorToast.cancel();
+                }
+            }, TOAST_DURATION);
         }
     }
 

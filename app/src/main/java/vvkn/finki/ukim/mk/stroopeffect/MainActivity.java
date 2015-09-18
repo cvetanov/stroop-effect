@@ -9,15 +9,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import vvkn.finki.ukim.mk.stroopeffect.db.ResultsDao;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.HomeFragment;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.ResultsFragment;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
+import vvkn.finki.ukim.mk.stroopeffect.models.Result;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SE:MainActivity";
     private ResultsDao dao;
+    private List<Result> results;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         dao = new ResultsDao(getApplicationContext());
+        results = new ArrayList<>();
         initHomeFragment();
     }
 
@@ -89,14 +94,26 @@ public class MainActivity extends AppCompatActivity {
         transaction.commit();
     }
 
-    // TODO: read results from db and setArgumentsToFragment
     public void startResultsFragment()
     {
         Log.d(TAG, "Initializing results fragment.");
-        Fragment results = new ResultsFragment();
+
+        readResultsFromDatabase();
+
+        Fragment resultsFragment = new ResultsFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.addToBackStack(null);
-        transaction.replace(R.id.container, results);
+        transaction.replace(R.id.container, resultsFragment);
         transaction.commit();
+    }
+
+    private void readResultsFromDatabase()
+    {
+        results = dao.getAllResults();
+    }
+
+    public List<Result> getResults()
+    {
+        return results;
     }
 }

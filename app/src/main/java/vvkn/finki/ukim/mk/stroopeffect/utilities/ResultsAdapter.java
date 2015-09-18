@@ -49,9 +49,9 @@ public class ResultsAdapter extends ArrayAdapter<Result> {
         TextView txtViewCongruentTime = (TextView) v.findViewById(R.id.results_fragment_list_text_time_congruent);
         TextView txtViewIncongruentError = (TextView) v.findViewById(R.id.results_fragment_list_text_error_incongruent);
         TextView txtViewIncongruentTime = (TextView) v.findViewById(R.id.results_fragment_list_text_time_incongruent);
-        txtViewCongruentError.setText("" + result.getErrorPercentageCongruent());
+        txtViewCongruentError.setText(String.format("%.2f", result.getErrorPercentageCongruent()));
         txtViewCongruentTime.setText("" + result.getElapsedTimeCongruent());
-        txtViewIncongruentError.setText("" + result.getErrorPercentageIncongruent());
+        txtViewIncongruentError.setText(String.format("%.2f", result.getErrorPercentageIncongruent()));
         txtViewIncongruentTime.setText("" + result.getElapsedTimeIncongruent());
 
         return v;

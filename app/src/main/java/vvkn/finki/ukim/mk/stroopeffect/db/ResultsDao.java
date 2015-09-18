@@ -2,6 +2,7 @@ package vvkn.finki.ukim.mk.stroopeffect.db;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import java.sql.SQLException;
@@ -49,24 +50,28 @@ public class ResultsDao  {
         return false;
     }
 
-    // TODO: read all results from database
-    public List<Result> readResults()
-    {
-        List<Result> results = new ArrayList<>();
-        Result r = new Result();
-        r.setGender("f");
-        results.add(r);
-        return results;
+    public List<Result> getAllResults() {
+        List<Result> items = new ArrayList<>();
+
+        Cursor cursor = database.query(ResultsDbOpenHelper.TABLE_NAME, allColumns,
+                null, null, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                items.add(cursorToResult(cursor));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return items;
     }
 
-    protected Result contentValuesToResult(ContentValues values)
-    {
+    protected Result cursorToResult(Cursor cursor) {
         Result result = new Result();
-        result.setGender(values.getAsString(ResultsDbOpenHelper.COLUMN_GENDER));
-        result.setElapsedTimeCongruent(values.getAsLong(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_CONGRUENT));
-        result.setErrorPercentageCongruent(values.getAsDouble(ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT));
-        result.setElapsedTimeIncongruent(values.getAsLong(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT));
-        result.setErrorPercentageIncongruent(values.getAsDouble(ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT));
+        result.setGender(cursor.getString(cursor.getColumnIndex(ResultsDbOpenHelper.COLUMN_GENDER)));
+        result.setElapsedTimeCongruent(cursor.getLong(cursor.getColumnIndex(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_CONGRUENT)));
+        result.setErrorPercentageCongruent(cursor.getDouble(cursor.getColumnIndex(ResultsDbOpenHelper.COLUMN_ERROR_CONGRUENT)));
+        result.setElapsedTimeIncongruent(cursor.getLong(cursor.getColumnIndex(ResultsDbOpenHelper.COLUMN_ELAPSED_TIME_INCONGRUENT)));
+        result.setErrorPercentageIncongruent(cursor.getDouble(cursor.getColumnIndex(ResultsDbOpenHelper.COLUMN_ERROR_INCONGRUENT)));
         return result;
     }
 
