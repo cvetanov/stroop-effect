@@ -11,11 +11,7 @@ import android.widget.RadioGroup;
 import mk.ukim.finki.vvkn.stroopeffect.MainActivity;
 import mk.ukim.finki.vvkn.stroopeffect.R;
 
-/**
- * A placeholder fragment containing a simple view.
- */
 public class HomeFragment extends Fragment {
-    public static final String TAG = "SE:MainFragment";
 
     private RadioGroup radioGroup;
     private Button btnStart;

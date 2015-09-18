@@ -3,7 +3,6 @@ package mk.ukim.finki.vvkn.stroopeffect.fragments;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +20,11 @@ import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 import mk.ukim.finki.vvkn.stroopeffect.utilities.StopWatch;
 
 public class SimulationFragment extends Fragment {
-    public static final String TAG = "SE:TestFragment";
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
     public static final int MAX_SIMULATIONS = 5;
     public static final int TOAST_DURATION = 500;
-
-    private static final int [] COLOR_FIELDS = { R.color.color_option_1, R.color.color_option_2,
-                                                R.color.color_option_3, R.color.color_option_4,
-                                                R.color.color_option_5, R.color.color_option_6,
-                                                R.color.color_option_7 };
 
     private static final int [] COLOR_BACKGROUNDS = { R.drawable.color_black, R.drawable.color_red, R.drawable.color_green,
                                                         R.drawable.color_blue, R.drawable.color_yellow, R.drawable.color_pink,
@@ -135,7 +128,6 @@ public class SimulationFragment extends Fragment {
                 if (mSimulationType == STROOP_EFFECT_INCONGRUENT) {
                     String message = "Thanks for participating. " + currentResult.toString();
                     Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                    Log.d(TAG, "" + ((MainActivity)getActivity()).getDao().insert(currentResult));
                     ((MainActivity)getActivity()).startHomeFragment();
                 }
 
@@ -161,7 +153,7 @@ public class SimulationFragment extends Fragment {
 
     private void simulate(int type)
     {
-        int correctColorId = random.nextInt(COLOR_FIELDS.length);
+        int correctColorId = random.nextInt(COLOR_BACKGROUNDS.length);
         int [] otherColorsIds = generateOtherRandomNumbers(correctColorId);
         int correctAnswerIndex = random.nextInt(imgViewsArray.length);
         mCorrectAnswer = correctAnswerIndex;
@@ -228,7 +220,6 @@ public class SimulationFragment extends Fragment {
         }
     }
 
-    // TODO: Refactor random generators (make them more reusable)
     private int[] generateOtherRandomNumbers(int correctColorId)
     {
         int [] colorIds = new int[imgViewsArray.length - 1];
@@ -239,17 +230,17 @@ public class SimulationFragment extends Fragment {
 
         while (colorIds[0] == -1 || colorIds[0] == correctColorId)
         {
-            colorIds[0] = random.nextInt(COLOR_FIELDS.length);
+            colorIds[0] = random.nextInt(COLOR_BACKGROUNDS.length);
         }
 
         while (colorIds[1] == -1 || colorIds[1] == colorIds[0] || colorIds[1] == correctColorId)
         {
-            colorIds[1] = random.nextInt(COLOR_FIELDS.length);
+            colorIds[1] = random.nextInt(COLOR_BACKGROUNDS.length);
         }
 
         while (colorIds[2] == -1 || colorIds[2] == colorIds[0] || colorIds[2] == colorIds[1] || colorIds[2] == correctColorId)
         {
-            colorIds[2] = random.nextInt(COLOR_FIELDS.length);
+            colorIds[2] = random.nextInt(COLOR_BACKGROUNDS.length);
         }
         return colorIds;
     }
@@ -269,8 +260,6 @@ public class SimulationFragment extends Fragment {
             thirdIndex = random.nextInt(otherValues.length);
         }
 
-        Log.d(TAG, "randomized random values: " + firstIndex + ' ' + secondIndex + ' ' + thirdIndex);
-
         newValues[0] = otherValues[firstIndex];
         newValues[1] = otherValues[secondIndex];
         newValues[2] = otherValues[thirdIndex];
@@ -281,6 +270,5 @@ public class SimulationFragment extends Fragment {
     @Override
     public void onPause() {
         super.onPause();
-        Log.d(TAG, "final result: \n" + currentResult.toString());
     }
 }

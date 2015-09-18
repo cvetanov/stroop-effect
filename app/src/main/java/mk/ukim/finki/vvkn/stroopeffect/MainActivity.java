@@ -1,5 +1,6 @@
 package mk.ukim.finki.vvkn.stroopeffect;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -20,6 +21,7 @@ import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SE:MainActivity";
+    private MediaPlayer player;
     private ResultsDao dao;
     private List<Result> results;
 
@@ -28,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        player = MediaPlayer.create(getApplicationContext(), R.raw.background_music);
+        player.setLooping(true);
         dao = new ResultsDao(getApplicationContext());
         results = new ArrayList<>();
         initHomeFragment();
@@ -36,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        player.start();
         try {
             dao.open();
         } catch (SQLException e) {
@@ -46,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
+        player.stop();
         dao.close();
     }
 

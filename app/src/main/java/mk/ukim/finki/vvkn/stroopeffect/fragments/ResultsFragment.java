@@ -14,7 +14,6 @@ import mk.ukim.finki.vvkn.stroopeffect.R;
 import mk.ukim.finki.vvkn.stroopeffect.utilities.ResultsAdapter;
 
 public class ResultsFragment extends Fragment {
-    public static final String TAG = "SE:ResultsFragment";
 
     private ListView listView;
 
