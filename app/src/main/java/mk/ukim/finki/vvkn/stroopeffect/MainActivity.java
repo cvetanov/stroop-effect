@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect;
+package mk.ukim.finki.vvkn.stroopeffect;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,11 +12,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import vvkn.finki.ukim.mk.stroopeffect.db.ResultsDao;
-import vvkn.finki.ukim.mk.stroopeffect.fragments.HomeFragment;
-import vvkn.finki.ukim.mk.stroopeffect.fragments.ResultsFragment;
-import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
-import vvkn.finki.ukim.mk.stroopeffect.models.Result;
+import mk.ukim.finki.vvkn.stroopeffect.db.ResultsDao;
+import mk.ukim.finki.vvkn.stroopeffect.fragments.HomeFragment;
+import mk.ukim.finki.vvkn.stroopeffect.fragments.ResultsFragment;
+import mk.ukim.finki.vvkn.stroopeffect.fragments.SimulationFragment;
+import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TAG = "SE:MainActivity";

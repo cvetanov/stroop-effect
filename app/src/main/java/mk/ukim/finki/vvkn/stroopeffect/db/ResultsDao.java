@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.db;
+package mk.ukim.finki.vvkn.stroopeffect.db;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import vvkn.finki.ukim.mk.stroopeffect.models.Result;
+import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class ResultsDao  {
     private SQLiteDatabase database;

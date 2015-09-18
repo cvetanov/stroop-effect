@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.fragments;
+package mk.ukim.finki.vvkn.stroopeffect.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,8 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.RadioGroup;
 
-import vvkn.finki.ukim.mk.stroopeffect.MainActivity;
-import vvkn.finki.ukim.mk.stroopeffect.R;
+import mk.ukim.finki.vvkn.stroopeffect.MainActivity;
+import mk.ukim.finki.vvkn.stroopeffect.R;
 
 /**
  * A placeholder fragment containing a simple view.

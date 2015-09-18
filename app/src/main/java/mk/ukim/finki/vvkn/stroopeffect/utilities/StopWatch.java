@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.utilities;
+package mk.ukim.finki.vvkn.stroopeffect.utilities;
 
 public class StopWatch {
     private long startTime;

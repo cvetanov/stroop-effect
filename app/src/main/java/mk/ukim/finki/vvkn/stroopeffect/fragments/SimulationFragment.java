@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.fragments;
+package mk.ukim.finki.vvkn.stroopeffect.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,10 +15,10 @@ import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Random;
 
-import vvkn.finki.ukim.mk.stroopeffect.MainActivity;
-import vvkn.finki.ukim.mk.stroopeffect.R;
-import vvkn.finki.ukim.mk.stroopeffect.models.Result;
-import vvkn.finki.ukim.mk.stroopeffect.utilities.StopWatch;
+import mk.ukim.finki.vvkn.stroopeffect.MainActivity;
+import mk.ukim.finki.vvkn.stroopeffect.R;
+import mk.ukim.finki.vvkn.stroopeffect.models.Result;
+import mk.ukim.finki.vvkn.stroopeffect.utilities.StopWatch;
 
 public class SimulationFragment extends Fragment {
     public static final String TAG = "SE:TestFragment";

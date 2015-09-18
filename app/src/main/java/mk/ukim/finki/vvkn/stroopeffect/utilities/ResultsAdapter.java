@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.utilities;
+package mk.ukim.finki.vvkn.stroopeffect.utilities;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import vvkn.finki.ukim.mk.stroopeffect.R;
-import vvkn.finki.ukim.mk.stroopeffect.models.Result;
+import mk.ukim.finki.vvkn.stroopeffect.R;
+import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class ResultsAdapter extends ArrayAdapter<Result> {
     public static final String TAG = "SE:ResultsAdapter";

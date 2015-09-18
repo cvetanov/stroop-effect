@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.fragments;
+package mk.ukim.finki.vvkn.stroopeffect.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,9 +9,9 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import vvkn.finki.ukim.mk.stroopeffect.MainActivity;
-import vvkn.finki.ukim.mk.stroopeffect.R;
-import vvkn.finki.ukim.mk.stroopeffect.utilities.ResultsAdapter;
+import mk.ukim.finki.vvkn.stroopeffect.MainActivity;
+import mk.ukim.finki.vvkn.stroopeffect.R;
+import mk.ukim.finki.vvkn.stroopeffect.utilities.ResultsAdapter;
 
 public class ResultsFragment extends Fragment {
     public static final String TAG = "SE:ResultsFragment";

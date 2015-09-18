@@ -1,4 +1,4 @@
-package vvkn.finki.ukim.mk.stroopeffect.db;
+package mk.ukim.finki.vvkn.stroopeffect.db;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

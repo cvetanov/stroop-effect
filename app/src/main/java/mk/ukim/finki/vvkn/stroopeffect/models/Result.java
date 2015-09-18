@@ -1,6 +1,6 @@
-package vvkn.finki.ukim.mk.stroopeffect.models;
+package mk.ukim.finki.vvkn.stroopeffect.models;
 
-import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
+import mk.ukim.finki.vvkn.stroopeffect.fragments.SimulationFragment;
 
 public class Result {
     // Primary key
