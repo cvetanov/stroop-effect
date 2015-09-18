@@ -97,7 +97,6 @@ public class MainActivity extends AppCompatActivity {
     public void startResultsFragment()
     {
         Log.d(TAG, "Initializing results fragment.");
-
         readResultsFromDatabase();
 
         Fragment resultsFragment = new ResultsFragment();

@@ -12,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pkmmte.view.CircularImageView;
+
 import java.util.Random;
 
 import vvkn.finki.ukim.mk.stroopeffect.MainActivity;
@@ -24,13 +26,18 @@ public class SimulationFragment extends Fragment {
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
-    public static final int MAX_SIMULATIONS = 1;
+    public static final int MAX_SIMULATIONS = 5;
     public static final int TOAST_DURATION = 500;
 
     private static final int [] COLOR_FIELDS = { R.color.color_option_1, R.color.color_option_2,
                                                 R.color.color_option_3, R.color.color_option_4,
                                                 R.color.color_option_5, R.color.color_option_6,
                                                 R.color.color_option_7 };
+
+    private static final int [] COLOR_BACKGROUNDS = { R.drawable.color_black, R.drawable.color_red, R.drawable.color_green,
+                                                        R.drawable.color_blue, R.drawable.color_yellow, R.drawable.color_pink,
+                                                        R.drawable.color_cyan};
+
     private static final String [] COLOR_NAMES = { "Black", "Red", "Green", "Blue", "Yellow", "Pink", "Cyan" };
 
     private int mSimulationType;
@@ -41,7 +48,7 @@ public class SimulationFragment extends Fragment {
     private final StopWatch stopWatch;
     private final Random random;
 
-    private ImageView imgViewMain;
+    private CircularImageView imgViewCircle;
     private ImageView[] imgViewsArray;
     private TextView[] txtViewsArray;
 
@@ -90,7 +97,7 @@ public class SimulationFragment extends Fragment {
 
     private void initializeWidgets(View view)
     {
-        imgViewMain = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_main);
+        imgViewCircle = (CircularImageView) view.findViewById(R.id.simulation_fragment_image_view_circle);
 
         imgViewsArray[0] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option1);
         imgViewsArray[1] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option2);
@@ -167,7 +174,7 @@ public class SimulationFragment extends Fragment {
 
     private void setWidgetsCongruent(int[] otherColorsIds, int correctAnswerIndex, int correctColorId)
     {
-        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+        imgViewCircle.setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[correctColorId]));
 
         for (int i = 0, j = 0; i < imgViewsArray.length; ++i)
         {
@@ -186,7 +193,7 @@ public class SimulationFragment extends Fragment {
 
     private void setWidgetsIncongruent(int[] otherColorIds, int correctImageViewIndex, int correctColorId)
     {
-        imgViewMain.setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+        imgViewCircle.setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[correctColorId]));
 
         int imgViewIndexForCorrectColor = random.nextInt(imgViewsArray.length);
         while (imgViewIndexForCorrectColor == correctImageViewIndex)
