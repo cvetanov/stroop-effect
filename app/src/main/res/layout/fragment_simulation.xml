@@ -16,12 +16,12 @@
         android:gravity="center_horizontal"
         android:padding="20dp"/>
 
-    <com.pkmmte.view.CircularImageView
+    <com.makeramen.roundedimageview.RoundedImageView
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:id="@+id/simulation_fragment_image_view_circle"
         android:layout_gravity="center_horizontal"
-        app:shadow="true" />
+        app:riv_corner_radius="50dp"/>
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -38,12 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/simulation_fragment_frame_option1">
-                <ImageView
+
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@color/dark_red"
-                    android:id="@+id/simulation_fragment_image_view_option1"
-                    android:layout_margin="20dp" />
+                    android:id="@+id/simulation_fragment_image_view_option1_rounded"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -61,12 +63,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/simulation_fragment_frame_option2"
                 android:layout_toRightOf="@id/simulation_fragment_frame_option1">
-                <ImageView
+
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@color/dark_red"
-                    android:id="@+id/simulation_fragment_image_view_option2"
-                    android:layout_margin="20dp" />
+                    android:id="@+id/simulation_fragment_image_view_option2_rounded"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -93,12 +97,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/simulation_fragment_frame_option3">
-                <ImageView
+
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@color/dark_red"
-                    android:id="@+id/simulation_fragment_image_view_option3"
-                    android:layout_margin="20dp" />
+                    android:id="@+id/simulation_fragment_image_view_option3_rounded"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -116,12 +122,14 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/simulation_fragment_frame_option4"
                 android:layout_toRightOf="@id/simulation_fragment_frame_option3">
-                <ImageView
+
+                <com.makeramen.roundedimageview.RoundedImageView
                     android:layout_width="100dp"
                     android:layout_height="100dp"
-                    android:background="@color/dark_red"
-                    android:id="@+id/simulation_fragment_image_view_option4"
-                    android:layout_margin="20dp" />
+                    android:id="@+id/simulation_fragment_image_view_option4_rounded"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_margin="20dp"
+                    />
 
                 <TextView
                     android:layout_width="wrap_content"

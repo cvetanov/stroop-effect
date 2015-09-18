@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -16,16 +17,10 @@ public class ResultsAdapter extends ArrayAdapter<Result> {
     public static final String TAG = "SE:ResultsAdapter";
 
     private List<Result> results;
-    private int resource;
-
-    public ResultsAdapter(Context context, int resource) {
-        super(context, resource);
-    }
 
     public ResultsAdapter(Context context, int resource, List<Result> objects) {
         super(context, resource, objects);
         results = objects;
-        this.resource = resource;
     }
 
     @Override
@@ -49,15 +44,17 @@ public class ResultsAdapter extends ArrayAdapter<Result> {
         TextView txtViewCongruentTime = (TextView) v.findViewById(R.id.results_fragment_list_text_time_congruent);
         TextView txtViewIncongruentError = (TextView) v.findViewById(R.id.results_fragment_list_text_error_incongruent);
         TextView txtViewIncongruentTime = (TextView) v.findViewById(R.id.results_fragment_list_text_time_incongruent);
-        txtViewCongruentError.setText(String.format("%.2f", result.getErrorPercentageCongruent()));
-        txtViewCongruentTime.setText("" + result.getElapsedTimeCongruent());
-        txtViewIncongruentError.setText(String.format("%.2f", result.getErrorPercentageIncongruent()));
-        txtViewIncongruentTime.setText("" + result.getElapsedTimeIncongruent());
+        txtViewCongruentError.setText("Error% " + String.format("%.2f", result.getErrorPercentageCongruent()));
+        txtViewCongruentTime.setText("Response time (ms) " + result.getElapsedTimeCongruent());
+        txtViewIncongruentError.setText("Error% " + String.format("%.2f", result.getErrorPercentageIncongruent()));
+        txtViewIncongruentTime.setText("Response time (ms) " + result.getElapsedTimeIncongruent());
+
+        if (position % 2 == 1)
+        {
+            LinearLayout containerLayout = (LinearLayout)v.findViewById(R.id.results_fragment_layout_container);
+            containerLayout.setBackgroundColor(getContext().getResources().getColor(R.color.row_stripping));
+        }
 
         return v;
-    }
-
-    public List<Result> getResults() {
-        return results;
     }
 }

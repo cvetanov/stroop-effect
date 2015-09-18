@@ -11,4 +11,6 @@
     <color name="color_option_5">#ffff00</color>
     <color name="color_option_6">#ff00ff</color>
     <color name="color_option_7">#00ffff</color>
+
+    <color name="row_stripping">#aaaaaa</color>
 </resources>

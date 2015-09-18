@@ -8,11 +8,10 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.pkmmte.view.CircularImageView;
+import com.makeramen.roundedimageview.RoundedImageView;
 
 import java.util.Random;
 
@@ -48,8 +47,8 @@ public class SimulationFragment extends Fragment {
     private final StopWatch stopWatch;
     private final Random random;
 
-    private CircularImageView imgViewCircle;
-    private ImageView[] imgViewsArray;
+    private RoundedImageView imgViewCircle;
+    private RoundedImageView[] imgViewsArray;
     private TextView[] txtViewsArray;
 
     private Toast errorToast;
@@ -57,7 +56,7 @@ public class SimulationFragment extends Fragment {
     private int mCorrectAnswer;
 
     public SimulationFragment() {
-        imgViewsArray = new ImageView[4];
+        imgViewsArray = new RoundedImageView[4];
         txtViewsArray = new TextView[4];
 
         currentResult = new Result();
@@ -97,12 +96,16 @@ public class SimulationFragment extends Fragment {
 
     private void initializeWidgets(View view)
     {
-        imgViewCircle = (CircularImageView) view.findViewById(R.id.simulation_fragment_image_view_circle);
+        imgViewCircle = (RoundedImageView) view.findViewById(R.id.simulation_fragment_image_view_circle);
 
-        imgViewsArray[0] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option1);
-        imgViewsArray[1] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option2);
-        imgViewsArray[2] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option3);
-        imgViewsArray[3] = (ImageView)view.findViewById(R.id.simulation_fragment_image_view_option4);
+        imgViewsArray[0] = (RoundedImageView)view.findViewById(R.id.simulation_fragment_image_view_option1_rounded);
+        imgViewsArray[1] = (RoundedImageView)view.findViewById(R.id.simulation_fragment_image_view_option2_rounded);
+        imgViewsArray[2] = (RoundedImageView)view.findViewById(R.id.simulation_fragment_image_view_option3_rounded);
+        imgViewsArray[3] = (RoundedImageView)view.findViewById(R.id.simulation_fragment_image_view_option4_rounded);
+        for(RoundedImageView roundedImageView : imgViewsArray)
+        {
+            roundedImageView.setCornerRadius((float)20);
+        }
 
         txtViewsArray[0] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option1);
         txtViewsArray[1] = (TextView)view.findViewById(R.id.simulation_fragment_text_view_option2);
@@ -180,12 +183,12 @@ public class SimulationFragment extends Fragment {
         {
             if (i == correctAnswerIndex)
             {
-                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+                imgViewsArray[i].setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[correctColorId]));
                 txtViewsArray[i].setText(COLOR_NAMES[correctColorId]);
             }
             else
             {
-                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorsIds[j]]));
+                imgViewsArray[i].setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[otherColorsIds[j]]));
                 txtViewsArray[i].setText(COLOR_NAMES[otherColorsIds[j++]]);
             }
         }
@@ -207,18 +210,18 @@ public class SimulationFragment extends Fragment {
         {
             if (i == correctImageViewIndex)
             {
-                imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorIds[imageIndex++]]));
+                imgViewsArray[i].setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[otherColorIds[imageIndex++]]));
                 txtViewsArray[i].setText(COLOR_NAMES[correctColorId]);
             }
             else
             {
                 if (i == imgViewIndexForCorrectColor)
                 {
-                    imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[correctColorId]));
+                    imgViewsArray[i].setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[correctColorId]));
                 }
                 else
                 {
-                    imgViewsArray[i].setBackgroundColor(getResources().getColor(COLOR_FIELDS[otherColorIds[imageIndex++]]));
+                    imgViewsArray[i].setImageDrawable(getResources().getDrawable(COLOR_BACKGROUNDS[otherColorIds[imageIndex++]]));
                 }
                 txtViewsArray[i].setText(COLOR_NAMES[txtIds[txtIndex++]]);
             }
