@@ -85,7 +85,8 @@ public class Result {
 
     @Override
     public String toString() {
-        return gender + '\n' + getErrorPercentageCongruent() + ' ' + getElapsedTimeCongruent() + '\n'
-                + getErrorPercentageIncongruent() + ' ' + getElapsedTimeIncongruent();
+        return String.format("%s\n%.2f %d\n%.2f %d", getGender(),
+                getErrorPercentageCongruent(), getElapsedTimeCongruent(),
+                getErrorPercentageIncongruent(), getElapsedTimeIncongruent());
     }
 }

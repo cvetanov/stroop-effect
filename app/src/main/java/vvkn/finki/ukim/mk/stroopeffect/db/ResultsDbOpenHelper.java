@@ -13,7 +13,7 @@ public class ResultsDbOpenHelper extends SQLiteOpenHelper {
     public static final String COLUMN_ELAPSED_TIME_INCONGRUENT = "elapsedTimeIncongruent";
     public static final String TABLE_NAME = "Results";
 
-    private static final String DATABASE_NAME = "Results.db";
+    private static final String DATABASE_NAME = "StroopEffectResults-test.db";
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE = String.format("create table %s (" +

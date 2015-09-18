@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_congruent"
+            android:text="@string/results_fragment_text_view_congruent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_error_congruent"
+            android:text="@string/text_view_default"
+            android:layout_toRightOf="@id/results_fragment_list_text_congruent"
+            android:paddingLeft="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_time_congruent"
+            android:layout_alignParentRight="true"
+            android:text="@string/text_view_default"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_incongruent"
+            android:text="@string/results_fragment_text_view_incongruent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_error_incongruent"
+            android:layout_toRightOf="@id/results_fragment_list_text_incongruent"
+            android:paddingLeft="10dp"
+            android:text="@string/text_view_default"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/results_fragment_list_text_time_incongruent"
+            android:layout_alignParentRight="true"
+            android:text="@string/text_view_default"/>
+    </RelativeLayout>
+
+</LinearLayout>

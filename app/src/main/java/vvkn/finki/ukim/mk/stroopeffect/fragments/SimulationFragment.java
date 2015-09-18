@@ -22,7 +22,7 @@ public class SimulationFragment extends Fragment {
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
-    public static final int MAX_SIMULATIONS = 5;
+    public static final int MAX_SIMULATIONS = 1;
 
     private static final int [] COLOR_FIELDS = { R.color.color_option_1, R.color.color_option_2,
                                                 R.color.color_option_3, R.color.color_option_4,
@@ -80,9 +80,6 @@ public class SimulationFragment extends Fragment {
             });
         }
 
-        // TODO: write result to db
-        //((MainActivity)getActivity()).getDao().insert(currentResult);
-
         return view;
     }
 
@@ -118,6 +115,7 @@ public class SimulationFragment extends Fragment {
                 if (mSimulationType == STROOP_EFFECT_INCONGRUENT) {
                     String message = "Thanks for participating. " + currentResult.toString();
                     Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    Log.d(TAG, "" + ((MainActivity)getActivity()).getDao().insert(currentResult));
                     ((MainActivity)getActivity()).startHomeFragment();
                 }
 

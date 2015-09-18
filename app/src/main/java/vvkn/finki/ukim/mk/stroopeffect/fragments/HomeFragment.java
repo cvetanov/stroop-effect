@@ -19,6 +19,7 @@ public class HomeFragment extends Fragment {
 
     private RadioGroup radioGroup;
     private Button btnStart;
+    private Button btnResults;
 
     public HomeFragment() {
     }
@@ -29,6 +30,7 @@ public class HomeFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_home, container, false);
         radioGroup = (RadioGroup)(view.findViewById(R.id.home_fragment_radio_buttons_group));
         btnStart = (Button)(view.findViewById(R.id.home_fragment_button_start_test));
+        btnResults = (Button)(view.findViewById(R.id.home_fragment_button_show_results));
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -40,10 +42,17 @@ public class HomeFragment extends Fragment {
         btnStart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String gender = (String)(view.findViewById(radioGroup.getCheckedRadioButtonId()).getTag());
+                String gender = (String) (view.findViewById(radioGroup.getCheckedRadioButtonId()).getTag());
                 if (gender == null || gender.isEmpty()) gender = "m";
 
-                ((MainActivity)getActivity()).startSimulationFragment(gender);
+                ((MainActivity) getActivity()).startSimulationFragment(gender);
+            }
+        });
+
+        btnResults.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ((MainActivity)getActivity()).startResultsFragment();
             }
         });
 

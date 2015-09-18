@@ -12,6 +12,7 @@ import java.sql.SQLException;
 
 import vvkn.finki.ukim.mk.stroopeffect.db.ResultsDao;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.HomeFragment;
+import vvkn.finki.ukim.mk.stroopeffect.fragments.ResultsFragment;
 import vvkn.finki.ukim.mk.stroopeffect.fragments.SimulationFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -85,6 +86,17 @@ public class MainActivity extends AppCompatActivity {
 
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, simulateTest);
+        transaction.commit();
+    }
+
+    // TODO: read results from db and setArgumentsToFragment
+    public void startResultsFragment()
+    {
+        Log.d(TAG, "Initializing results fragment.");
+        Fragment results = new ResultsFragment();
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.addToBackStack(null);
+        transaction.replace(R.id.container, results);
         transaction.commit();
     }
 }
