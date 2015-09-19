@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,7 +19,6 @@ import mk.ukim.finki.vvkn.stroopeffect.fragments.SimulationFragment;
 import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TAG = "SE:MainActivity";
     private MediaPlayer player;
     private ResultsDao dao;
     private List<Result> results;
@@ -51,12 +49,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        player.stop();
+        player.pause();
         dao.close();
     }
 
-    public ResultsDao getDao() {
-        return dao;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        player.stop();
     }
 
     @Override
@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startHomeFragment()
     {
-        Log.d(TAG, "Simulation finished. Starting home fragment.");
         Fragment home = new HomeFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, home);
@@ -88,7 +87,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startSimulationFragment(String gender)
     {
-        Log.d(TAG, "Initializing stroop effect simulation fragment.");
         Fragment simulateTest = new SimulationFragment();
 
         Bundle arguments = new Bundle();
@@ -102,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void startResultsFragment()
     {
-        Log.d(TAG, "Initializing results fragment.");
         readResultsFromDatabase();
 
         Fragment resultsFragment = new ResultsFragment();
@@ -120,5 +117,10 @@ public class MainActivity extends AppCompatActivity {
     public List<Result> getResults()
     {
         return results;
+    }
+
+    public void insertResultIntoDatabase(Result result)
+    {
+        dao.insert(result);
     }
 }

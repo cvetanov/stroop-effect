@@ -14,8 +14,6 @@ import mk.ukim.finki.vvkn.stroopeffect.R;
 import mk.ukim.finki.vvkn.stroopeffect.models.Result;
 
 public class ResultsAdapter extends ArrayAdapter<Result> {
-    public static final String TAG = "SE:ResultsAdapter";
-
     private List<Result> results;
 
     public ResultsAdapter(Context context, int resource, List<Result> objects) {

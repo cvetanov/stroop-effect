@@ -51,18 +51,18 @@ public class ResultsDao  {
     }
 
     public List<Result> getAllResults() {
-        List<Result> items = new ArrayList<>();
+        List<Result> results = new ArrayList<>();
 
         Cursor cursor = database.query(ResultsDbOpenHelper.TABLE_NAME, allColumns,
                 null, null, null, null, null);
 
         if (cursor.moveToFirst()) {
             do {
-                items.add(cursorToResult(cursor));
+                results.add(cursorToResult(cursor));
             } while (cursor.moveToNext());
         }
         cursor.close();
-        return items;
+        return results;
     }
 
     protected Result cursorToResult(Cursor cursor) {

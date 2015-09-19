@@ -1,7 +1,6 @@
 package mk.ukim.finki.vvkn.stroopeffect.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,6 @@ public class ResultsFragment extends Fragment {
 
     private ListView listView;
 
-    @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_results, container, false);

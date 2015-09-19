@@ -23,8 +23,8 @@ public class SimulationFragment extends Fragment {
     public static final String TESTER_GENDER = "male or female";
     public static final int STROOP_EFFECT_CONGRUENT = 0;
     public static final int STROOP_EFFECT_INCONGRUENT = 1;
-    public static final int MAX_SIMULATIONS = 5;
-    public static final int TOAST_DURATION = 500;
+    public static final int MAX_SIMULATIONS = 9;
+    public static final int TOAST_DURATION = 300;
 
     private static final int [] COLOR_BACKGROUNDS = { R.drawable.color_black, R.drawable.color_red, R.drawable.color_green,
                                                         R.drawable.color_blue, R.drawable.color_yellow, R.drawable.color_pink,
@@ -107,7 +107,7 @@ public class SimulationFragment extends Fragment {
 
         View toastView = getActivity().getLayoutInflater().inflate(R.layout.toast_error, null);
         errorToast = new Toast(getActivity().getApplicationContext());
-        errorToast.setGravity(Gravity.BOTTOM, 0, 100);
+        errorToast.setGravity(Gravity.BOTTOM, 0, 0);
         errorToast.setView(toastView);
     }
 
@@ -126,8 +126,9 @@ public class SimulationFragment extends Fragment {
                 stopWatch.restart();
 
                 if (mSimulationType == STROOP_EFFECT_INCONGRUENT) {
-                    String message = "Thanks for participating. " + currentResult.toString();
+                    String message = "Thanks for participating.";
                     Toast.makeText(getActivity().getApplicationContext(), message, Toast.LENGTH_LONG).show();
+                    ((MainActivity)getActivity()).insertResultIntoDatabase(currentResult);
                     ((MainActivity)getActivity()).startHomeFragment();
                 }
 

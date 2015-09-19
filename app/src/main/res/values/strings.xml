@@ -14,7 +14,4 @@
 
     <string name="simulation_fragment_text_view_instructions">Click the name of the color of the circle</string>
     <string name="simulation_fragment_image_view_description">Main image view</string>
-
-    <string name="results_fragment_text_view_congruent">c:   </string>
-    <string name="results_fragment_text_view_incongruent">i:   </string>
 </resources>
