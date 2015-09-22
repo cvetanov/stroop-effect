@@ -1,19 +1,19 @@
 # Stroop effect
 User-friendly application developed for testing [The Stroop Effect](https://en.wikipedia.org/wiki/Stroop_effect)
 
-This application is developed in order to achieve a simple stroop effect simulation and as part of my Cognitive Science course.
+This application is developed in order to achieve a simple stroop effect simulation and as part of my Introduction to Cognitive Science course.
 It consists of two types of simulations:
 * Congruent, where the colour of the square and the name of the colour match
-* Incongruent, where the name of the colour is different than the colour of the circle
+* Incongruent, where the name of the colour written in the square is different than it's colour
 
-The user's task is to react as quickly as possible and select the square in which the name of the color of the cirle displayed on top is.
+The user's task is to react as quickly as possible and select the square in which the name of the colour of the cirle displayed on top is.
 *For example, if the circle's colour is red, the user should select the square in which it is written 'Red'*
 
 One test consists of multiple simulations of the two types.
 
 User response time and error percentage are measured and stored into a local SQLite database.
 
-When enough users have tested themselves, the database is pulled from the device using `adb pull`.
+When enough users have performed the test, the database is pulled from the device using `adb pull`.
 The results in the database are later structured and processed in R for confirming the Stroop effect.
 
 An additional feature is the gender of the user. I would like to determine which gender reacts better to this effect.
