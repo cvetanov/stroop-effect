@@ -47,10 +47,14 @@ public class ResultsAdapter extends ArrayAdapter<Result> {
         txtViewIncongruentError.setText("Error% " + String.format("%.2f", result.getErrorPercentageIncongruent()));
         txtViewIncongruentTime.setText("Response time (ms) " + result.getElapsedTimeIncongruent());
 
+        LinearLayout containerLayout = (LinearLayout)v.findViewById(R.id.results_fragment_layout_container);
         if (position % 2 == 1)
         {
-            LinearLayout containerLayout = (LinearLayout)v.findViewById(R.id.results_fragment_layout_container);
-            containerLayout.setBackgroundColor(getContext().getResources().getColor(R.color.row_stripping));
+            containerLayout.setBackgroundColor(getContext().getResources().getColor(R.color.row_striping_odd));
+        }
+        else
+        {
+            containerLayout.setBackgroundColor(getContext().getResources().getColor(R.color.row_striping_even));
         }
 
         return v;
