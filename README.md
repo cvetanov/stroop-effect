@@ -1,7 +1,8 @@
 # Stroop effect
 User-friendly application developed for testing [The Stroop Effect](https://en.wikipedia.org/wiki/Stroop_effect)
 
-This application is developed in order to achieve a simple stroop effect simulation and as part of my Introduction to Cognitive Science course.
+This application is developed in order to achieve a simple stroop effect simulation and as part of my Introduction to Cognitive Science course at the Faculty of Computer Science and Engineering in Skopje, Republic of Macedonia.
+
 It consists of two types of simulations:
 * Congruent, where the colour of the square and the name of the colour match
 * Incongruent, where the name of the colour written in the square is different than it's colour
